@@ -17,24 +17,24 @@ void print2d(std::vector<bool> &b, int length) {
         assert(length*length == (int)b.size());
         for (int i = 0; i < length; ++i) {
                 for (int j = 0; j < length; ++j)
-                        std::cout << "xo"[b[i*length + j]] << ' ';
+                        std::cout << "_x"[b[i*length + j]] << ' ';
                 std::cout << std::endl;
         }
 }
 
 int main() {
-        int len = 100;
+        int len = 10;
         Game game(len, 2);
         auto &b = game.board;
-        //b[4*len+4] = b[4*len+5] = b[5*len+4] = b[5*len+5] = true; // cube (len=10)
-        //b[23] = b[24] = b[32] = b[43] = b[44] = b[35] = true; // behive (len=10)
+        //b[80] = b[81] = b[90] = b[91] = true; // cube
+        //b[23] = b[24] = b[32] = b[43] = b[44] = b[35] = true; // behive 
 
-        b[203] = b [304] = b[402] = b [403] = b[404] = true; // spaceship (len=100)
+        b[13] = b [24] = b[32] = b [33] = b[34] = true; // spaceship 
         
         
         std::string str;
-        while(std::getline(std::cin, str)) {
+        do {
                 print2d(game.board, game.length);
                 game.step();
-        }
+        } while (std::getline(std::cin, str));
 }

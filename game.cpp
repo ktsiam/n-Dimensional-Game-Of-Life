@@ -1,6 +1,5 @@
 #include "game.hpp"
-#include "custom/prettyprint"
-#include <iostream>
+
 extern bool calculate(int neighbours, bool self, int dimen);
 
 int pow(int base, int exp) {
@@ -49,12 +48,12 @@ void Game::step() {
                 
                 do {
                         int idx = i + counter*length;
-                        if (idx == i || idx < 0 || idx >= size)
-                                continue;
+                        idx = (idx + size) % size;
 
-                        if (copy[idx]) neighbours++;
+                        // ignoring self
+                        if (idx != i and copy[idx]) neighbours++;
                         
-                } while (++counter); // until overflow
+                } while (++ counter); // until overflow
                 
                 board[i] = calculate(neighbours, copy[i], dimen);
         }
