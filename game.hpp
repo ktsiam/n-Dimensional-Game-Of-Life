@@ -13,10 +13,8 @@ struct Game {
         int length; // how long each dimensions is
         int dimen;  // how many dimensions there are
         std::vector<bool> board;
-        
+
         Game(int length_, int dimen_);
 
         void step();
 };
-
-        

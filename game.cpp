@@ -1,6 +1,7 @@
 #include "game.hpp"
 
-extern bool calculate(int neighbours, bool self, int dimen);
+extern bool calculate(int neighbours, bool self, int subsistence, int overpop,
+  int dimen);
 
 int pow(int base, int exp) {
         if (!exp) return 1;
@@ -34,27 +35,28 @@ int Trinary::operator*(int base) {
         return result;
 }
 
-Game::Game(int length_, int dimen_) :
+Game::Game(int length_, int dimen_, int subsistence, int overpop) :
         length(length_), dimen(dimen_), board(pow(length, dimen)) {}
 
 void Game::step() {
         const std::vector<bool> copy = board;
         int size = board.size();
-        
+
         Trinary counter(dimen);
         for (int i = 0; i < size; ++i) {
 
                 int neighbours = 0;
-                
+
                 do {
                         int idx = i + counter*length;
                         idx = (idx + size) % size;
 
                         // ignoring self
                         if (idx != i and copy[idx]) neighbours++;
-                        
+
                 } while (++ counter); // until overflow
-                
-                board[i] = calculate(neighbours, copy[i], dimen);
+
+                board[i] = calculate(neighbours, copy[i], subsistence, overpop,
+                  dimen);
         }
 }

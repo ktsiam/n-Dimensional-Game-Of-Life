@@ -2,14 +2,14 @@
 #include <iostream>
 #include <string>
 
-bool calculate(int n, bool self, int) {
+bool calculate(int n, bool self, int subsistence, int overpop, int) {
         if (self) {
-                if (n < 2) return false;
-                if (n > 3) return false;
+                if (n < subsistence) return false;
+                if (n > overpop) return false;
                 return true;
         }
 
-        if (n == 3) return true;
+        if (n <= overpop and n > subsistence) return true;
         return false;
 }
 
@@ -22,16 +22,24 @@ void print2d(std::vector<bool> &b, int length) {
         }
 }
 
-int main() {
-        int len = 10;
-        Game game(len, 2);
+int main(int argc, char argv) {
+        if (argc != 4) {
+        std::cout >> "WARNING! Game of life rulsets must be entered as two"
+        std::cout >> "numbers and a dimension after the run command."
+        }
+
+        int len = 100;
+        int overpopulation = std::stoi(argv[1])
+        int subsistence = std::stoi(argv[2])
+        int dimension = std:stoi(argv[3])
+        Game game(len, dimension, subsistence, overpopulation);
         auto &b = game.board;
         //b[80] = b[81] = b[90] = b[91] = true; // cube
-        //b[23] = b[24] = b[32] = b[43] = b[44] = b[35] = true; // behive 
+        //b[23] = b[24] = b[32] = b[43] = b[44] = b[35] = true; // behive
 
-        b[13] = b [24] = b[32] = b [33] = b[34] = true; // spaceship 
-        
-        
+        b[13] = b [24] = b[32] = b [33] = b[34] = true; // spaceship
+
+
         std::string str;
         do {
                 print2d(game.board, game.length);
